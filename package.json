@@ -1,0 +1,16 @@
+{
+  "name": "api-stuff",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/bun": "^1.0.11",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@azure/ai-form-recognizer": "^5.0.0",
+    "hono": "^4.1.5"
+  }
+}
