@@ -1,15 +1,15 @@
 
-POST http://localhost:3000/upload
+POST http://localhost:3000/docs/process
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="docs"; filename="Filled_Fake_Rental_Contract.pdf"
+Content-Disposition: form-data; name="docs[]"; filename="Filled_Fake_Rental_Contract.pdf"
 Content-Type: application/pdf
 
 < /Users/mk0y/Documents/test-data/Filled_Fake_Rental_Contract.pdf
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="docs"; filename="New_Filled_Fake_Rental_Contract.pdf"
+Content-Disposition: form-data; name="docs[]"; filename="New_Filled_Fake_Rental_Contract.pdf"
 Content-Type: application/pdf
 
 < /Users/mk0y/Documents/test-data/New_Filled_Fake_Rental_Contract.pdf

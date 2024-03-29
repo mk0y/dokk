@@ -3,6 +3,10 @@ import {
   DocumentAnalysisClient,
 } from "@azure/ai-form-recognizer";
 
+export type DependenciesOpts = {
+  azClient?: DocumentAnalysisClient
+}
+
 export const prepAzClient = () => {
   const endpoint = process.env.AZURE_DOCS_ENDPOINT as string;
   const azureKey = process.env.AZURE_KEY_CREDENTIAL as string;
