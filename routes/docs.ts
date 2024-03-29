@@ -1,12 +1,22 @@
+import { DocumentAnalysisClient } from "@azure/ai-form-recognizer";
+import { Hono } from "hono";
 import * as R from "ramda";
 import { prepAzClient } from "../utils/deps";
 import { raise400 } from "../utils/errors";
 import { maybe } from "../utils/fn";
-import { RouteContext } from "./routes.types";
 
+type Variables = {
+  azClient: DocumentAnalysisClient | Function;
+};
+
+const app = new Hono<{ Variables: Variables }>();
 const getAzClient = prepAzClient();
+app.use(async (c, next) => {
+  c.set("azClient", getAzClient());
+  await next();
+});
 
-const handler = async (c: RouteContext, azClient = getAzClient()) => {
+app.post("/process", async (c) => {
   const b = await c.req.parseBody();
   const docs = maybe(() => b["docs[]"]);
   if (!docs) {
@@ -19,9 +29,6 @@ const handler = async (c: RouteContext, azClient = getAzClient()) => {
   } else {
     throw raise400({ message: "Unknown type" });
   }
-};
+});
 
-export const docsProcessRoute = async (c: RouteContext) => {
-  const result = await handler(c);
-  return result;
-};
+export default app;

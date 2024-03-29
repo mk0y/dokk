@@ -1,8 +1,7 @@
 import { Hono } from "hono";
-import { docsProcessRoute } from "./routes/docs.process";
+import docs from "./routes/docs";
 
 const app = new Hono();
-
-app.post("/docs/process", docsProcessRoute);
+app.route("/docs", docs);
 
 export default app;
