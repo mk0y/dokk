@@ -3,16 +3,20 @@ POST http://localhost:3000/docs/process
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="docs[]"; filename="Filled_Fake_Rental_Contract.pdf"
+Content-Disposition: form-data; name="doctype";
+
+invoice
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="docs[]"; filename="Invoice_INVFR0176511.pdf"
 Content-Type: application/pdf
 
-< /Users/mk0y/Documents/test-data/Filled_Fake_Rental_Contract.pdf
+< /Users/mk0y/Documents/test-data/invoices/Invoice_INVFR0176511.pdf
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="docs[]"; filename="New_Filled_Fake_Rental_Contract.pdf"
+Content-Disposition: form-data; name="docs[]"; filename="Invoice_INVFR0186606.pdf"
 Content-Type: application/pdf
 
-< /Users/mk0y/Documents/test-data/New_Filled_Fake_Rental_Contract.pdf
+< /Users/mk0y/Documents/test-data/invoices/Invoice_INVFR0186606.pdf
 ------WebKitFormBoundary7MA4YWxkTrZu0gW---
 
 ###

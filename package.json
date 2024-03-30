@@ -1,6 +1,9 @@
 {
   "name": "api-stuff",
   "module": "index.ts",
+  "scripts": {
+    "test": "ENV=test bun test"
+  },
   "devDependencies": {
     "@types/bun": "^1.0.11",
     "@types/ramda": "^0.29.11",
