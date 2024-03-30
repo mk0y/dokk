@@ -4,8 +4,10 @@ Document intelligence API.
 
 ## Env vars
 
-- AZURE_DOCS_ENDPOINT=https://{your-subdomain}.cognitiveservices.azure.com/
-- AZURE_KEY_CREDENTIAL=
+```yaml
+AZURE_DOCS_ENDPOINT=https://{your-subdomain}.cognitiveservices.azure.com/
+AZURE_KEY_CREDENTIAL=
+```
 
 To install dependencies:
 
