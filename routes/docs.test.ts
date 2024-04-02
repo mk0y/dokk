@@ -43,8 +43,10 @@ describe(`POST "/docs/process"`, () => {
     expect(R.path(["docs", 1, "documents"], json)).toBeArray();
     expect(res.status).toBe(200);
   });
+});
 
-  test("test-data", async () => {
+describe("test-data", () => {
+  test("invoices", async () => {
     const bunfile = Bun.file("./test-data/invoice-result-7prq.json");
     const content = await bunfile.json();
     const fields: string[] = R.path(["documents", 0, "fields"], content);

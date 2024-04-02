@@ -2,8 +2,31 @@ import {
   AnalysisPoller,
   AnalyzeResult,
   AnalyzedDocument,
-  DocumentAnalysisClient,
 } from "@azure/ai-form-recognizer";
+import { AzDocsClient } from "./types";
+
+const invoiceSimpleFields = [
+  "BillingAddressRecipient",
+  "CustomerAddressRecipient",
+  "CustomerName",
+  "CustomerTaxId",
+  "DueDate",
+  "InvoiceDate",
+  "InvoiceId",
+  "ServiceEndDate",
+  "VendorAddressRecipient",
+  "VendorName",
+  "VendorTaxId",
+];
+
+const invoiceJsonValueFields = [
+  "BillingAddress", // or
+  "CustomerAddress", // or
+  "InvoiceTotal",
+  "SubTotal",
+  "TotalTax",
+  "VendorAddress",
+];
 
 export const analyzeSingleDoc = async ({
   doc,
@@ -12,7 +35,7 @@ export const analyzeSingleDoc = async ({
 }: {
   doc: File;
   analyzerType: string;
-  azClient: DocumentAnalysisClient;
+  azClient: AzDocsClient;
 }) => {
   const arraybuffer = await doc.arrayBuffer();
   const buffer = Buffer.from(arraybuffer);

@@ -1,4 +1,3 @@
-import { DocumentAnalysisClient } from "@azure/ai-form-recognizer";
 import { Hono } from "hono";
 import * as R from "ramda";
 import { analyzeSingleDoc } from "../utils/azure_fn";
@@ -6,8 +5,9 @@ import { prepAzClient } from "../utils/deps";
 import { raise400 } from "../utils/errors";
 import { getAnalyzerType, maybe } from "../utils/fn";
 import { AzDocsClient } from "../utils/types";
+import { writeToVectorStore } from "../utils/vector_fn";
 
-const app = new Hono<{ Variables: AzDocsClient }>();
+const app = new Hono<{ Variables: { azClient: AzDocsClient } }>();
 const getAzClient = prepAzClient(Bun.env.ENV !== "test");
 app.use(async (c, next) => {
   c.set("azClient", getAzClient());
@@ -33,19 +33,19 @@ app.post("/process", async (c) => {
       analyzerType,
     });
   })({ azClient, analyzerType });
+  const resultdata = [];
   if (!Array.isArray(docs) && docs instanceof File) {
     const data = await getData(docs);
-    return c.json({ docs: [data] });
-  } else if (R.all((doc) => doc instanceof Blob, docs)) {
-    const returndata = []
+    resultdata.push(data);
+  } else if (R.all((doc) => doc instanceof File, docs)) {
     for (let doc of docs) {
-      const data = await getData(doc);
-      returndata.push(data)
+      const docdata = await getData(doc);
+      resultdata.push(docdata);
     }
-    return c.json({ docs: returndata });
-  } else {
-    throw raise400({ message: "Unknown type" });
   }
+  if (resultdata.length < 1) throw raise400({ message: "Unknown error" });
+  await writeToVectorStore(resultdata)
+  return c.json({ docs: resultdata });
 });
 
 export default app;
